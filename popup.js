@@ -30,6 +30,54 @@ const say = (text, isErr) => {
         const u = new URL(tab.url);
         if (u.protocol === 'http:' || u.protocol === 'https:') origin = u.origin;
     } catch (e) {}
+
+    // 사이트 끄기: 목록에서 빼고, 같은 호스트의 다른 포트가 남아 있지 않을 때만 권한 회수
+    const removeSite = async (target) => {
+        const {sites: cur = {}} = await chrome.storage.local.get('sites');
+        delete cur[target];
+        await chrome.storage.local.set({sites: cur});
+        const host = new URL(target).hostname;
+        const stillUsed = Object.keys(cur).some((o) => new URL(o).hostname === host);
+        if (!stillUsed) await chrome.permissions.remove({origins: [new URL(target).protocol + '//' + host + '/*']});
+    };
+
+    // 사용 중인 사이트 목록 (현재 탭 사이트는 강조)
+    const renderList = async () => {
+        const {sites: cur = {}} = await chrome.storage.local.get('sites');
+        const keys = Object.keys(cur).sort();
+        const ul = $('list');
+        ul.innerHTML = '';
+        if (!keys.length) {
+            ul.innerHTML = '<li class="empty">아직 켠 사이트가 없습니다.</li>';
+            return;
+        }
+        keys.forEach((o) => {
+            const li = document.createElement('li');
+            const name = document.createElement('span');
+            name.className = 'o' + (o === origin ? ' cur' : '');
+            name.textContent = o;
+            const m = document.createElement('span');
+            m.className = 'm';
+            m.textContent = toText(cur[o].map);
+            const del = document.createElement('button');
+            del.textContent = '삭제';
+            del.addEventListener('click', async () => {
+                await removeSite(o);
+                if (o === origin) {
+                    $('enabled').checked = false;
+                    say('꺼짐 — 페이지를 새로고침합니다.');
+                    setTimeout(() => chrome.tabs.reload(tab.id), 300);
+                } else say(o + ' 삭제됨 — 그 사이트는 새로고침하면 원래대로 돌아갑니다.');
+            });
+            li.append(name, m, del);
+            ul.appendChild(li);
+        });
+    };
+    renderList();
+    chrome.storage.onChanged.addListener((changes) => {
+        if (changes.sites) renderList();
+    });
+
     if (!origin) {
         $('site').textContent = '이 페이지에서는 사용할 수 없습니다.';
         $('enabled').disabled = true;
@@ -66,11 +114,7 @@ const say = (text, isErr) => {
             if (!had) return say('켜짐 — 페이지가 새로고침됩니다.');
             say('켜짐 — 페이지를 새로고침합니다.');
         } else {
-            delete cur[origin];
-            await saveSites(cur);
-            // 같은 호스트의 다른 포트가 남아 있지 않을 때만 권한 회수
-            const stillUsed = Object.keys(cur).some((o) => new URL(o).hostname === new URL(origin).hostname);
-            if (!stillUsed) await chrome.permissions.remove({origins: [pattern]});
+            await removeSite(origin);
             say('꺼짐 — 페이지를 새로고침합니다.');
         }
         setTimeout(() => chrome.tabs.reload(tab.id), 300); // 스크립트 등록이 끝난 뒤 새로고침
