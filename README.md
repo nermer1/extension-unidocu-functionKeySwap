@@ -52,3 +52,20 @@ unidocu 플러그인 `functionKeySwap`(고객사 config 기준)과 같은 동작
 - unidocu 플러그인 `functionKeySwap` 이 같이 설치돼 있어도 확장이 먼저 처리하고(`stopImmediatePropagation`) 중복 변환하지 않는다
 - 디버그 팝업 등 같은 사이트의 새 창·iframe 에서도 동작
 - 크롬 111 이상 (`world: "MAIN"` 콘텐츠 스크립트)
+
+## 웹스토어 패키지
+
+태그(동결된 버전)에서 바로 zip 을 만든다. `.gitattributes` 의 `export-ignore` 로 README·`store/` 는 빠지고 확장 실행 파일만 들어간다.
+
+```bash
+mkdir -p dist
+git archive --format=zip -o dist/unidocu-f8f9-1.0.1.zip v1.0.1
+```
+
+- 태그 이름 `v<버전>` 은 `manifest.json` 의 `version` 과 같아야 한다 (웹스토어는 올릴 때마다 버전이 올라가야 함)
+- 제출 문구·권한 사유·테스트 안내·영상 촬영 순서: `store/listing.md`
+- 스크린샷·프로모션 타일: `store/assets/*.png` (원본 `*.html` 을 고치면 headless 크롬으로 다시 렌더링)
+
+```bash
+chrome --headless=new --hide-scrollbars --window-size=1280,800 --screenshot=store/assets/screenshot-1.png store/assets/screenshot-1.html
+```

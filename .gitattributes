@@ -1,0 +1,5 @@
+# 웹스토어 zip(git archive)에서 제외 — 확장 실행 파일만 들어가게
+.gitattributes export-ignore
+.gitignore export-ignore
+README.md export-ignore
+store/ export-ignore

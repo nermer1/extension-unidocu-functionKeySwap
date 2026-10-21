@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: 'Malgun Gothic', sans-serif; color: #212529; background: #f4f7fb; overflow: hidden; }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: #e7f5ff; color: #1864ab; font-weight: bold; }
+.key { display: inline-block; min-width: 44px; padding: 4px 10px; border: 1px solid #adb5bd; border-bottom-width: 3px; border-radius: 6px; background: #fff; font-weight: bold; text-align: center; }
+/* 팝업 모형 — popup.html 과 같은 스타일 */
+.popup { width: 300px; padding: 12px; font: 13px/1.5 'Malgun Gothic', sans-serif; background: #fff; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,.18); }
+.popup h1 { font-size: 14px; margin: 0 0 8px; }
+.popup .pref { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: #f1f3f5; border-radius: 4px; margin-bottom: 10px; }
+.popup .pref .sel { margin-left: auto; }
+.popup .sel { display: inline-block; padding: 1px 22px 1px 6px; border: 1px solid #ced4da; border-radius: 4px; position: relative; }
+.popup .sel:after { content: '▾'; position: absolute; right: 6px; color: #868e96; }
+.popup .site { color: #495057; margin-bottom: 6px; }
+.popup .toggle { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.popup .chk { width: 14px; height: 14px; border-radius: 3px; background: #1971c2; color: #fff; font-size: 10px; line-height: 14px; text-align: center; }
+.popup .row { margin-bottom: 6px; }
+.popup .status { font-size: 12px; padding: 4px 8px; border-radius: 4px; background: #e7f5ff; color: #1864ab; margin-bottom: 6px; }
+.popup .msg { color: #2b8a3e; font-size: 12px; min-height: 16px; }
+.popup h2 { font-size: 12px; color: #495057; margin: 10px 0 4px; padding-top: 8px; border-top: 1px solid #e9ecef; }
+.popup ul { list-style: none; margin: 0; padding: 0; }
+.popup li { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-bottom: 1px solid #f1f3f5; }
+.popup li .o { flex: 1; }
+.popup li .o.cur { font-weight: bold; color: #1971c2; }
+.popup li .m { color: #868e96; font-size: 11px; }
+.popup li .del { padding: 1px 6px; font-size: 11px; color: #c92a2a; border: 1px solid #ffc9c9; border-radius: 4px; }
