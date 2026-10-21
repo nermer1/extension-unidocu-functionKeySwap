@@ -9,7 +9,7 @@ const hostPattern = (origin) => {
     return u.protocol + '//' + u.hostname + '/*';
 };
 
-async function sync() {
+async function doSync() {
     const {sites = {}} = await chrome.storage.local.get('sites');
     const patterns = Array.from(new Set(Object.keys(sites).map(hostPattern)));
 
@@ -30,10 +30,33 @@ async function sync() {
     ]);
 }
 
+// 등록 작업은 한 번에 하나씩 (저장소 변경·권한 허용이 겹치면 중복 ID 에러가 나므로 순서대로)
+let queue = Promise.resolve();
+const sync = () => {
+    queue = queue.then(doSync).catch((e) => console.error('[functionKeyCompat] 스크립트 등록 실패', e));
+    return queue;
+};
+
+// 권한을 새로 허용받은 사이트의 탭 새로고침 — 콘텐츠 스크립트는 페이지 로드 때만 들어가므로
+//   (권한 창이 뜨면 팝업이 닫혀 팝업 쪽 새로고침이 실행되지 않음 → 살아 있는 background 가 처리)
+async function reloadTabs(origins) {
+    const hosts = (origins || []).map((p) => p.replace(/^[a-z*]+:\/\//, '').replace(/\/.*$/, ''));
+    if (!hosts.length) return;
+    const tabs = await chrome.tabs.query({});
+    tabs.forEach((tab) => {
+        try {
+            if (hosts.indexOf(new URL(tab.url).hostname) !== -1) chrome.tabs.reload(tab.id);
+        } catch (e) {}
+    });
+}
+
 chrome.runtime.onInstalled.addListener(sync);
 chrome.runtime.onStartup.addListener(sync);
 chrome.storage.onChanged.addListener((changes) => {
     if (changes.sites) sync();
 });
-chrome.permissions.onAdded.addListener(sync); // 팝업이 권한 창 때문에 닫혀도 허용되면 여기서 등록
+chrome.permissions.onAdded.addListener(async (perm) => {
+    await sync(); // 등록을 마친 뒤에 새로고침해야 스크립트가 들어감
+    await reloadTabs(perm.origins);
+});
 chrome.permissions.onRemoved.addListener(sync);

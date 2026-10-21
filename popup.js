@@ -53,14 +53,17 @@ const say = (text, isErr) => {
             const map = fromText($('map').value);
             cur[origin] = {map: Object.keys(map).length ? map : DEFAULT_MAP};
             await saveSites(cur);
+            const had = await chrome.permissions.contains({origins: [pattern]});
             // 이 사이트(호스트) 권한만 요청 — 팝업의 사용자 클릭 안에서 호출해야 권한 창이 뜸
-            const ok = await chrome.permissions.request({origins: [pattern]});
+            const ok = had || (await chrome.permissions.request({origins: [pattern]}));
             if (!ok) {
                 delete cur[origin];
                 await saveSites(cur);
                 $('enabled').checked = false;
                 return say('권한을 허용해야 사용할 수 있습니다.', true);
             }
+            // 권한을 새로 받은 경우는 background(permissions.onAdded)가 등록 후 새로고침 → 여기서 또 하면 두 번 됨
+            if (!had) return say('켜짐 — 페이지가 새로고침됩니다.');
             say('켜짐 — 페이지를 새로고침합니다.');
         } else {
             delete cur[origin];
