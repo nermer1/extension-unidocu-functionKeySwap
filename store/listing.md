@@ -41,7 +41,7 @@ unidocu 솔루션은 버전마다 F8·F9 단축키 배치가 다릅니다.
 - **아이콘**: 패키지의 `icons/icon128.png` 가 자동 사용됨 (업로드 칸이 있으면 같은 파일)
 - **스크린샷 (1280×800)**: `store/assets/screenshot-1.png`, `store/assets/screenshot-2.png`
 - **작은 프로모션 타일 (440×280)**: `store/assets/promo-small.png`
-- **YouTube 동영상**: 데모 영상 링크 (미등록 공개, 아래 7번 순서로 촬영)
+- **YouTube 동영상**: https://www.youtube.com/watch?v=nasjU5IvkIo (일부 공개, 아래 7번 순서로 촬영)
 - **홈페이지 / 지원 URL**: 선택 — 비워 두거나 GitHub 레포가 공개면 레포 주소
 
 ## 3. 개인정보 보호 (Privacy practices)
@@ -103,7 +103,7 @@ Host access is optional and never granted at install. When the user turns on "Us
 This extension is a tool for developers/operators of "unidocu", an enterprise web application installed on each customer's internal server. Those servers are internal and require company accounts, so we cannot provide a public test URL or credentials.
 
 Please see the demo video linked in the store listing:
-<YouTube URL>
+https://www.youtube.com/watch?v=nasjU5IvkIo
 
 What the video shows (on a local unidocu page whose debug key is F8):
 1. Open the popup and turn on "Use on this site".
