@@ -105,11 +105,13 @@ This extension is a tool for developers/operators of "unidocu", an enterprise we
 Please see the demo video linked in the store listing:
 <YouTube URL>
 
-What the video shows:
-1. Open the popup and choose "My debug key" (F8).
-2. On a unidocu page, turn on "Use on this site" and allow the permission for that single host.
-3. The popup shows the detected debug key of the page (e.g. "debug = F9 -> swap F8/F9").
-4. Pressing F8 now opens the unidocu debug window, which originally required F9.
+What the video shows (on a local unidocu page whose debug key is F8):
+1. Open the popup and turn on "Use on this site".
+2. Chrome asks for permission for that single host only; the user allows it and the page reloads.
+3. "My debug key" is F8 (same as the page), so nothing is swapped: pressing F8 opens the unidocu debug panel as usual.
+4. In the popup, change "My debug key" to F9.
+5. Now pressing F8 no longer opens the debug panel (tried several times).
+6. Pressing F9 opens the debug panel - the F8/F9 keys have been swapped for this user.
 
 Behavior and safety notes:
 - The content scripts run only on hosts the user explicitly enabled, and do nothing unless the page is a unidocu page (window.$u and jQuery exist).
@@ -125,13 +127,16 @@ Behavior and safety notes:
 
 내부 화면이 나오므로 **개발 서버(localhost)나 테스트 데이터 화면**에서 찍고, 고객사명·주소창의 사내 도메인이 보이면 가리거나 잘라낸다.
 
-1. `chrome://extensions` 에서 확장이 설치된 모습 (몇 초)
-2. 확장을 켜기 전: unidocu 화면에서 **F8** → 디버그 창이 **안** 뜨는 것 (이 버전은 F9 가 디버그)
-3. 확장 아이콘 → 내 디버그 키 **F8** 확인 → **이 사이트에서 사용** 체크 → 권한 허용 → 자동 새로고침
-4. 다시 아이콘 → 감지 결과 `감지: 이 페이지 디버그 = F9 → F8↔F9 맞바꿈` 이 보이게
-5. **F8** → 디버그 창이 뜨는 것
-6. (선택) 디버그 키가 F8 인 다른 버전 화면에서 감지 결과 "그대로" + F8 로 디버그 창
-7. 팝업에서 **삭제** → 원래대로 돌아오는 것
+디버그 키가 F8 인 localhost 화면 기준 (1.0.1 제출 때 찍은 순서):
 
-키 입력이 영상에 안 보이므로 화면 녹화 도구의 키 입력 표시를 켜거나, 자막으로 "F8 누름" 을 넣는다.
+1. 확장 아이콘 → **이 사이트에서 사용** 체크
+2. 그 호스트 하나만 묻는 **권한 창** → 허용 → 자동 새로고침
+3. **F8** → 디버그 요소가 뜨는 것 (내 디버그 키 F8 = 페이지와 같아 그대로)
+4. 팝업에서 내 디버그 키를 **F9** 로 변경
+5. **F8** → 디버그 요소가 **안** 뜨는 것 (여러 번)
+6. **F9** → 디버그 요소가 뜨는 것
+
+- 권한 창이 안 뜨면 크롬이 예전 허용을 기억하는 것 → 확장 삭제 후 다시 로드하고 찍는다
+- 키 입력이 영상에 안 보이므로 키 입력 표시 도구(Carnac 등)를 켜고 찍는다
+- 녹화는 윈도우 캡처 도구(`Win + Shift + R`)로 충분
 업로드: YouTube → 공개 범위 **일부 공개(미등록)**.
