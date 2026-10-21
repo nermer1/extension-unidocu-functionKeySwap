@@ -99,24 +99,13 @@ Host access is optional and never granted at install. When the user turns on "Us
 
 ## 5. 테스트 안내 (Test instructions)
 
+사용자 인증 정보(아이디·비밀번호) 칸은 비워 둔다. 추가 안내 칸은 **500자 제한**이라 짧게.
+
 ```
-This extension is a tool for developers/operators of "unidocu", an enterprise web application installed on each customer's internal server. Those servers are internal and require company accounts, so we cannot provide a public test URL or credentials.
-
-Please see the demo video linked in the store listing:
-https://www.youtube.com/watch?v=nasjU5IvkIo
-
-What the video shows (on a local unidocu page whose debug key is F8):
-1. Open the popup and turn on "Use on this site".
-2. Chrome asks for permission for that single host only; the user allows it and the page reloads.
-3. "My debug key" is F8 (same as the page), so nothing is swapped: pressing F8 opens the unidocu debug panel as usual.
-4. In the popup, change "My debug key" to F9.
-5. Now pressing F8 no longer opens the debug panel (tried several times).
-6. Pressing F9 opens the debug panel - the F8/F9 keys have been swapped for this user.
-
-Behavior and safety notes:
-- The content scripts run only on hosts the user explicitly enabled, and do nothing unless the page is a unidocu page (window.$u and jQuery exist).
-- To detect which key opens the debug window, remap.js reads the source text of the page's own keydown handler. It is used only in memory for this check and never stored or sent.
-- No data is collected or transmitted. No remote code is used. Settings stay in chrome.storage.local.
+Tool for developers of "unidocu", an enterprise web app on customers' internal servers, so no public URL or test account can be provided.
+Demo video (key presses shown on screen): https://www.youtube.com/watch?v=nasjU5IvkIo
+In the video: turn on "Use on this site" -> Chrome asks permission for that host only -> F8 opens the debug panel -> set "My debug key" to F9 -> now F8 does not, F9 does.
+Runs only on hosts the user enabled. No data collected or sent. No remote code.
 ```
 
 ## 6. 제출
