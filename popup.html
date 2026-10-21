@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { width: 280px; margin: 0; padding: 12px; font: 13px/1.5 'Malgun Gothic', sans-serif; color: #212529; }
+        h1 { font-size: 14px; margin: 0 0 8px; }
+        .site { color: #495057; word-break: break-all; margin-bottom: 10px; }
+        label.toggle { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; cursor: pointer; }
+        .row { display: flex; align-items: center; gap: 6px; }
+        input[type=text] { flex: 1; padding: 4px 6px; border: 1px solid #ced4da; border-radius: 4px; font: inherit; }
+        button { padding: 4px 10px; border: 1px solid #1971c2; background: #1971c2; color: #fff; border-radius: 4px; cursor: pointer; font: inherit; }
+        button:disabled { opacity: .5; cursor: default; }
+        .hint { color: #868e96; font-size: 12px; margin-top: 6px; }
+        .msg { color: #2b8a3e; font-size: 12px; margin-top: 8px; min-height: 16px; }
+        .err { color: #c92a2a; }
+    </style>
+</head>
+<body>
+    <h1>functionKeyCompat</h1>
+    <div class="site" id="site">현재 사이트 확인 중…</div>
+    <label class="toggle"><input type="checkbox" id="enabled"> 이 사이트에서 사용</label>
+    <div class="row">
+        <input type="text" id="map" placeholder="F8=F9, F9=F8">
+        <button id="save">저장</button>
+    </div>
+    <div class="hint">형식: 누른 키=실행할 키 (쉼표로 구분). 예) F8=F9, F9=F8</div>
+    <div class="msg" id="msg"></div>
+    <script src="popup.js"></script>
+</body>
+</html>
