@@ -1,16 +1,22 @@
-// ISOLATED world: 확장 저장소에서 이 사이트(origin)의 매핑을 읽어 <html data-fkc-map> 으로 페이지에 전달
-//   remap.js(MAIN world)는 키를 누를 때마다 이 속성을 읽으므로 로드 순서와 무관하게 동작
+// ISOLATED world: 확장 저장소의 설정을 <html data-fkc-config> 로 페이지(MAIN world)에 전달
+//   { mode: 'auto'|'custom', map: {F8:'F9',...}, preferred: 'F8'|'F9' }
+//   remap.js 는 키를 누를 때마다 이 속성을 읽으므로 로드 순서와 무관하게 동작
 (function () {
-    const apply = (sites) => {
-        const site = (sites || {})[location.origin];
+    const apply = (sites, preferred) => {
         const el = document.documentElement;
         if (!el) return;
-        if (site && site.map) el.dataset.fkcMap = JSON.stringify(site.map);
-        else delete el.dataset.fkcMap;
+        const site = (sites || {})[location.origin];
+        if (!site) return delete el.dataset.fkcConfig;
+        el.dataset.fkcConfig = JSON.stringify({
+            mode: site.mode === 'custom' ? 'custom' : 'auto', // mode 없는 예전 항목은 자동 감지로
+            map: site.map || {},
+            preferred: preferred === 'F9' ? 'F9' : 'F8'
+        });
     };
-    chrome.storage.local.get('sites').then(({sites}) => apply(sites));
-    // 팝업에서 매핑을 바꾸면 새로고침 없이 바로 반영
+    const load = () => chrome.storage.local.get(['sites', 'preferredDebugKey']).then((s) => apply(s.sites, s.preferredDebugKey));
+    load();
+    // 팝업에서 설정을 바꾸면 새로고침 없이 바로 반영
     chrome.storage.onChanged.addListener((changes) => {
-        if (changes.sites) apply(changes.sites.newValue);
+        if (changes.sites || changes.preferredDebugKey) load();
     });
 })();
