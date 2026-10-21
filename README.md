@@ -1,4 +1,4 @@
-# functionKeyCompat (크롬 확장)
+# unidocu F8·F9 단축키 맞춤 (크롬 확장)
 
 unidocu 솔루션 버전마다 다른 펑션키(F8·F9) 배치를 **내가 원하는 배치로** 맞추는 크롬 확장 프로그램.
 unidocu 플러그인 `functionKeyCompat`(고객사 config 기준)과 같은 동작을 **사용자 브라우저 기준**으로 제공한다.

@@ -33,7 +33,7 @@ async function doSync() {
 // 등록 작업은 한 번에 하나씩 (저장소 변경·권한 허용이 겹치면 중복 ID 에러가 나므로 순서대로)
 let queue = Promise.resolve();
 const sync = () => {
-    queue = queue.then(doSync).catch((e) => console.error('[functionKeyCompat] 스크립트 등록 실패', e));
+    queue = queue.then(doSync).catch((e) => console.error('[unidocu F8·F9 단축키 맞춤] 스크립트 등록 실패', e));
     return queue;
 };
 

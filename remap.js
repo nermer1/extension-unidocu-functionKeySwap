@@ -107,5 +107,5 @@
         },
         true
     );
-    console.log('[functionKeyCompat 확장] 로드됨');
+    console.log('[unidocu F8·F9 단축키 맞춤] 로드됨');
 })();
