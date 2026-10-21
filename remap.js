@@ -1,4 +1,4 @@
-// MAIN world: unidocu 플러그인 functionKeyCompat 과 같은 방식으로 키를 바꿔 코어 단축키 로직을 그대로 실행
+// MAIN world: unidocu 플러그인 functionKeySwap 과 같은 방식으로 키를 바꿔 코어 단축키 로직을 그대로 실행
 //   window 캡처 단계에서 먼저 받아 매핑된 키만 막고, 바꾼 키 코드로 jQuery keydown 을 발생시킴
 //
 // 자동 감지(mode: auto):

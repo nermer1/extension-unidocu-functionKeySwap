@@ -1,7 +1,7 @@
 # unidocu F8·F9 단축키 맞춤 (크롬 확장)
 
 unidocu 솔루션 버전마다 다른 펑션키(F8·F9) 배치를 **내가 원하는 배치로** 맞추는 크롬 확장 프로그램.
-unidocu 플러그인 `functionKeyCompat`(고객사 config 기준)과 같은 동작을 **사용자 브라우저 기준**으로 제공한다.
+unidocu 플러그인 `functionKeySwap`(고객사 config 기준)과 같은 동작을 **사용자 브라우저 기준**으로 제공한다.
 여러 고객사·버전을 오가는 개발자가 어디서든 같은 손 감각으로 키를 쓰는 용도.
 
 | 솔루션 | F8 | F9 |
@@ -49,6 +49,6 @@ unidocu 플러그인 `functionKeyCompat`(고객사 config 기준)과 같은 동�
 | `popup.html/js` | 내 디버그 키, 사이트 켜기/끄기·모드, 감지 결과, 사용 중인 사이트 목록 |
 
 - unidocu 페이지(`window.$u` 와 jQuery 가 있는 페이지)에서만 동작, 매핑에 없는 키·Ctrl/Alt/Shift/Meta 조합은 통과
-- unidocu 플러그인 `functionKeyCompat` 이 같이 설치돼 있어도 확장이 먼저 처리하고(`stopImmediatePropagation`) 중복 변환하지 않는다
+- unidocu 플러그인 `functionKeySwap` 이 같이 설치돼 있어도 확장이 먼저 처리하고(`stopImmediatePropagation`) 중복 변환하지 않는다
 - 디버그 팝업 등 같은 사이트의 새 창·iframe 에서도 동작
 - 크롬 111 이상 (`world: "MAIN"` 콘텐츠 스크립트)
