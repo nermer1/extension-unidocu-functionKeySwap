@@ -33,14 +33,17 @@
     window.addEventListener(
         'keydown',
         (e) => {
-            if (!window.$u || !window.jQuery) return; // unidocu 페이지가 아니면 아무것도 안 함
+            // unidocu 는 jQuery 를 $ 로만 노출하기도 해서 둘 다 확인
+            const jq = window.jQuery || (window.$ && window.$.fn && window.$.fn.jquery ? window.$ : null);
+            if (!window.$u || !jq) return; // unidocu 페이지가 아니면 아무것도 안 함
             if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
             const to = currentMap()[e.keyCode];
             if (!to) return;
             e.stopImmediatePropagation(); // 원래 키는 코어·다른 리스너까지 안 감
             e.preventDefault();
-            window.jQuery(document).trigger(window.jQuery.Event('keydown', {which: to, keyCode: to}));
+            jq(document).trigger(jq.Event('keydown', {which: to, keyCode: to}));
         },
         true
     );
+    console.log('[functionKeyCompat 확장] 로드됨');
 })();
