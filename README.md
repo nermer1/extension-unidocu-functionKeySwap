@@ -9,11 +9,19 @@ unidocu 플러그인 `functionKeySwap`(고객사 config 기준)과 같은 동작
 | A | 디버그 모드 | 테스트 |
 | B | 조회 | 디버그 모드 |
 
-## 설치 (압축해제된 확장 로드)
+## 설치
+
+Chrome 웹스토어(미등록 — 링크로만 설치): https://chromewebstore.google.com/detail/pndfhlciflbogbfaebohmkccimmjpgpf
+
+- **Chrome에 추가** → 이후 버전은 자동 업데이트
+- 예전에 압축해제 버전을 로드했다면 먼저 삭제 (둘이 같이 켜져 있으면 헷갈림)
+
+### 개발용 (압축해제된 확장 로드)
 
 1. 크롬 주소창에 `chrome://extensions` 입력
 2. 오른쪽 위 **개발자 모드** 켜기
 3. **압축해제된 확장 프로그램을 로드합니다** → 이 폴더 선택
+4. 스토어 버전과 같이 켜두지 않는다 (확장 ID가 달라 둘 다 동작)
 
 ## 사용
 
